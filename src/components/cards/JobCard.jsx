@@ -20,7 +20,7 @@ const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 						<img
 							src={job?.company?.companyLogo}
 							alt="Company Logo"
-							className="w-14 h-14 object-cover rounded-2xl border-4 border-white/20 shadow-lg"
+							className="w-14 h-14 object-cover rounded-lg border-2 border-gray-100 shadow-lg"
 						/>
 					) : (
 						<div className="w-14 h-14 rounded-2xl flex items-center justify-center">
