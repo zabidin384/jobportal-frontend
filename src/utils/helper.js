@@ -30,7 +30,8 @@ export const validateAvatar = (file) => {
 export const getInitials = (name) => {
 	return name
 		.split(" ")
-		.map((word) => word.chartAt(0))
+		.filter((word) => word.length > 0)
+		.map((word) => word.charAt(0))
 		.join("")
 		.toUpperCase()
 		.slice(0, 2);
