@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { User, Mail, Lock, Upload, Eye, EyeOff, UserCheck, Building2, AlertCircle, CheckCircle, Loader } from "lucide-react";
 import { validateAvatar, validateEmail, validatePassword } from "../../utils/helper";
@@ -9,7 +8,6 @@ import { API_PATHS } from "../../utils/apiPaths";
 import { useAuth } from "../../context/AuthContext";
 
 const SignUp = () => {
-	const navigate = useNavigate();
 	const { login } = useAuth();
 	const [formData, setFormData] = useState({ fullName: "", email: "", password: "", role: "", avatar: null });
 	const [formState, setFormState] = useState({ loading: false, errors: {}, showPassword: false, avatarPreview: null, success: false });
@@ -97,8 +95,7 @@ const SignUp = () => {
 				login(response.data, token);
 
 				setTimeout(() => {
-					const path = formData.role === "employer" ? "/employer-dashboard" : "/find-jobs";
-					navigate(path);
+					window.location.href = formData.role === "employer" ? "/employer-dashboard" : "/find-jobs";
 				}, 2000);
 			}
 		} catch (error) {
