@@ -58,7 +58,7 @@ const JobDetails = () => {
 										<img
 											src={jobDetails?.company?.companyLogo}
 											alt="Company Logo"
-											className="w-20 h-20 p-2 object-cover rounded-2xl border-3 border-gray-200 shadow-lg"
+											className="w-20 h-20 p-2 object-cover rounded-lg border-2 border-gray-100 shadow-lg"
 										/>
 									) : (
 										<div className="w-20 h-20 bg-gray-100 border-2 border-gray-200 rounded-2xl flex items-center justify-center">
@@ -99,7 +99,7 @@ const JobDetails = () => {
 										{jobDetails.type}
 									</span>
 									<div
-										className={`flex items-center gap-1 px-4 py-2 bg-gray-100 text-sm text-gray-700 font-semibold rounded-full border border-gray-200`}
+										className={`flex items-center gap-1 px-4 py-2 bg-gray-100 text-sm text-gray-700 font-semibold rounded-full border-2 border-gray-200`}
 									>
 										<Clock className="w-4 h-4" />
 										<span>{jobDetails.createdAt ? moment(jobDetails.createdAt).format("Do MMM YYYY") : "N/A"}</span>
@@ -111,22 +111,22 @@ const JobDetails = () => {
 						{/* Content sections */}
 						<div className="px-0 pb-8 space-y-8">
 							{/* Salary section */}
-							<div className="relative overflow-hidden bg-gradient-to-r from-emerald-100 to-teal-100 border border-emerald-100 px-4 py-2 rounded-2xl">
+							<div className="relative overflow-hidden bg-gray-100 px-4 py-2 rounded-2xl">
 								<div className="relative z-10">
 									<div className="flex items-center justify-between">
 										<div className="flex items-center gap-3">
 											<div className="p-3 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-xl">
-												<DollarSign className="h-6 w-6 text-white" />
+												<DollarSign className="h-6 w-5 text-white" />
 											</div>
 											<div>
-												<h3 className="text-sm font-semibold text-gray-900 mb-1">Compensation</h3>
+												<h3 className="text-sm font-semibold text-gray-900 mb-1">Salary</h3>
 												<div className="text-lg font-bold text-gray-900">
 													${jobDetails.salaryMin} - ${jobDetails.salaryMax}
 													<span className="text-sm text-gray-700 font-normal ml-1">per month</span>
 												</div>
 											</div>
 										</div>
-										<div className="flex items-center gap-2 text-sm text-emerald-800 px-3 py-1 rounded-full font-semibold">
+										<div className="flex items-center gap-2 text-sm px-3 py-1 rounded-full font-semibold">
 											<Users className="h-4 w-4" />
 											<span>Competitive</span>
 										</div>
@@ -140,7 +140,7 @@ const JobDetails = () => {
 									<div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
 									<span className="text-lg">About this role</span>
 								</h3>
-								<div className="bg-gray-100 border border-gray-100 rounded-xl p-6">
+								<div className="bg-gray-100 rounded-xl p-6">
 									<div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{jobDetails.description}</div>
 								</div>
 							</div>
@@ -151,7 +151,7 @@ const JobDetails = () => {
 									<div className="w-1 h-8 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full"></div>
 									<span className="text-lg">What We're Looking For</span>
 								</h3>
-								<div className="bg-gray-100 border border-gray-100 rounded-xl p-6">
+								<div className="bg-gray-100 rounded-xl p-6">
 									<div className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap">{jobDetails.requirements}</div>
 								</div>
 							</div>
