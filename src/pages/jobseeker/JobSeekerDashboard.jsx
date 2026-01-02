@@ -92,6 +92,7 @@ const JobSeekerDashboard = () => {
 		}, 500);
 
 		return () => clearTimeout(timeoutId);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [filters, user]);
 
 	const handleFilterChange = (key, value) => {
@@ -168,6 +169,8 @@ const JobSeekerDashboard = () => {
 	if (jobs.length == 0 && loading) {
 		return <LoadingSpinner />;
 	}
+
+	if (error) return <div className="h-screen w-screen flex justify-center items-center">Error: {error}</div>;
 
 	return (
 		<div className="bg-gradient-to-br from-blue-50 via-white to-purple-50">
