@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import toast from "react-hot-toast";
@@ -12,7 +12,7 @@ import moment from "moment";
 const JobDetails = () => {
 	const { user } = useAuth();
 	const { jobId } = useParams();
-
+	const navigate = useNavigate();
 	const [jobDetails, setJobDetails] = useState(null);
 
 	const getJobDetailsById = async () => {
@@ -38,7 +38,7 @@ const JobDetails = () => {
 	};
 
 	useEffect(() => {
-		if (jobId && user) getJobDetailsById();
+		if (jobId) getJobDetailsById();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [jobId, user]);
 
@@ -83,7 +83,7 @@ const JobDetails = () => {
 										<button
 											className={`bg-gradient-to-r from-blue-100 to-blue-100 text-sm text-blue-700 hover:text-white px-6 py-2.5 rounded-xl
 												hover:from-blue-500 hover:to-blue-700 transition-all duration-200 font-semibold transform cursor-pointer`}
-											onClick={applyToJob}
+											onClick={user ? applyToJob : () => navigate("/login")}
 										>
 											Apply Now
 										</button>

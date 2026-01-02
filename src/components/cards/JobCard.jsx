@@ -2,17 +2,11 @@ import { useAuth } from "../../context/AuthContext";
 import { Bookmark, Building, Building2, Calendar, MapPin } from "lucide-react";
 import moment from "moment";
 import StatusBadge from "../StatusBadge";
+import { useNavigate } from "react-router-dom";
 
 const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 	const { user } = useAuth();
-
-	const formatSalary = (min, max) => {
-		const formatNumber = (num) => {
-			if (num >= 1000) return `$${(num / 1000).toFixed(0)}k`;
-			return `$${num}`;
-		};
-		return `${formatNumber(min)}/m`;
-	};
+	const navigate = useNavigate();
 
 	return (
 		<div
@@ -35,7 +29,9 @@ const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 					)}
 
 					<div className="flex-1 text-gray-600">
-						<h3 className="font-semibold text-base group-hover:text-gray-800 transition-colors leading-snug cursor-pointer">{job?.title}</h3>
+						<h3 className="font-semibold text-base group-hover:text-gray-800 transition-colors leading-snug cursor-pointer">
+							{job?.title}
+						</h3>
 						<p className="text-sm flex items-center gap-2 mt-1">
 							<Building className="w-3.5 h-3.5" />
 							{job?.company?.companyName}
@@ -76,7 +72,9 @@ const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 			</div>
 
 			<div className="flex items-center justify-between">
-				<div className="text-blue-600 font-semibold text-lg">{formatSalary(job?.salaryMin, job?.salaryMax)}</div>
+				<div className="text-gray-600 font-semibold">
+					${job?.salaryMin} - ${job?.salaryMax}
+				</div>
 				{!saved && (
 					<>
 						{job?.applicationStatus ? (
@@ -85,8 +83,13 @@ const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 							!hideApply && (
 								<button
 									onClick={(e) => {
-										e.stopPropagation();
-										onApply();
+										if (user) {
+											e.stopPropagation();
+											onApply();
+										} else {
+											e.stopPropagation();
+											navigate("/login");
+										}
 									}}
 									className={`bg-gradient-to-r bg-blue-600 text-sm text-white px-6 py-2.5 rounded-xl hover:bg-blue-700
                     transition-all duration-200 font-semibold transform hover:-translate-y-0.5 cursor-pointer`}
