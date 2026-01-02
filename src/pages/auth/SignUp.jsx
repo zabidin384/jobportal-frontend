@@ -128,26 +128,6 @@ const SignUp = () => {
 		);
 	}
 
-	if (formState.success) {
-		return (
-			<div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-				<motion.div
-					initial={{ opacity: 0, scale: 0.9 }}
-					animate={{ opacity: 1, scale: 1 }}
-					className="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center"
-				>
-					<CheckCircle className="w-12 h-12 text-green-500 mx-auto mb-4" />
-					<h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back!</h2>
-					<p className="text-gray-600 mb-4">You have been successfully logged in.</p>
-					{/* Loader */}
-					<div className="animate-spin w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full mx-auto" />
-
-					<p className="text-sm text-gray-500 mt-2">Redirecting to your dashboard...</p>
-				</motion.div>
-			</div>
-		);
-	}
-
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-8">
 			<motion.div
