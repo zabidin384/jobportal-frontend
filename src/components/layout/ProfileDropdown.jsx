@@ -7,13 +7,7 @@ const ProfileDropdown = ({ isOpen, onToggle, avatar, companyName, email, onLogou
 	return (
 		<div className="relative">
 			<button onClick={onToggle} className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
-				{avatar ? (
-					<img src={avatar} alt="Avatar" className="h-9 w-9 object-cover rounded-xl" />
-				) : (
-					<div className="h-8 w-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-						<span className="text-white font-semibold text-sm">{companyName}</span>
-					</div>
-				)}
+				<img src={avatar === "" ? "/avatar.jpg" : avatar} alt="Avatar" className="h-9 w-9 object-cover rounded-xl" />
 				<div className="hidden sm:block text-left">
 					<p className="text-sm font-medium text-gray-900">{companyName}</p>
 					<p className="text-xs text-gray-500">Employer</p>
