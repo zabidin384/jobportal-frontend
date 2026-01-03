@@ -1,5 +1,5 @@
 import { Building2, Edit3, Mail } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // File
 import { useAuth } from "../../context/AuthContext";
 import DashboardLayout from "../../components/layout/DashboardLayout";
@@ -8,22 +8,38 @@ import uploadImage from "../../utils/uploadImage";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import toast from "react-hot-toast";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const EmployerProfilePage = () => {
-	const { user, updateUser } = useAuth();
+	const { user, updateUser, loading } = useAuth();
 	const [profileData, setProfileData] = useState({
-		name: user?.name || "",
-		email: user?.email || "",
-		avatar: user?.avatar || "",
-		companyName: user?.companyName || "",
-		companyDescription: user?.companyDescription || "",
-		companyLogo: user?.companyLogo || "",
+		name: "",
+		email: "",
+		avatar: "",
+		companyName: "",
+		companyDescription: "",
+		companyLogo: "",
 	});
 
 	const [editMode, setEditMode] = useState(false);
 	const [formData, setFormData] = useState({ ...profileData });
 	const [uploading, setUploading] = useState({ avatar: false, logo: false });
 	const [saving, setSaving] = useState(false);
+
+	useEffect(() => {
+		if (user) {
+			const data = {
+				name: user.name || "",
+				email: user.email || "",
+				avatar: user.avatar || "",
+				companyName: user.companyName || "",
+				companyDescription: user.companyDescription || "",
+				companyLogo: user.companyLogo || "",
+			};
+			setProfileData(data);
+			setFormData(data);
+		}
+	}, [user]);
 
 	const handleInputChange = (field, value) => {
 		setFormData((prev) => ({ ...prev, [field]: value }));
@@ -85,6 +101,8 @@ const EmployerProfilePage = () => {
 		setEditMode(false);
 	};
 
+	if (loading) return <LoadingSpinner />;
+
 	if (editMode) {
 		return (
 			<EditProfileDetails
@@ -126,7 +144,7 @@ const EmployerProfilePage = () => {
 									{/* Avatar and Name */}
 									<div className="flex items-center gap-4">
 										<img
-											src={profileData.avatar === "" ? null : profileData.avatar}
+											src={profileData.avatar === "" ? "/avatar.jpg" : profileData.avatar}
 											alt="Avatar"
 											className="w-20 h-20 rounded-full object-cover border-4 border-blue-50"
 										/>
@@ -145,25 +163,33 @@ const EmployerProfilePage = () => {
 									<h2 className="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2">Company Information</h2>
 
 									{/* Company Logo and Name */}
-									<div className="flex items-center gap-4">
-										<img
-											src={profileData.companyLogo === "" ? null : profileData.companyLogo}
-											alt="Company Logo"
-											className="w-20 h-20 rounded-lg object-cover border-4 border-blue-50"
-										/>
-										<div>
-											<h3 className="text-lg font-semibold text-gray-800">{profileData.companyName}</h3>
-											<div className="flex items-center text-sm text-gray-600 mt-1">
-												<Building2 className="w-4 h-4 mr-2" />
-												<span>Company</span>
+									{profileData.companyLogo == "" || profileData.companyName === "" ? (
+										"No data found!"
+									) : (
+										<div className="flex items-center gap-4">
+											<img
+												src={profileData.companyLogo === "" ? null : profileData.companyLogo}
+												alt="Company Logo"
+												className="w-20 h-20 rounded-lg object-cover border-4 border-blue-50"
+											/>
+											<div>
+												<h3 className="text-lg font-semibold text-gray-800">{profileData.companyName}</h3>
+												<div className="flex items-center text-sm text-gray-600 mt-1">
+													<Building2 className="w-4 h-4 mr-2" />
+													<span>Company</span>
+												</div>
 											</div>
 										</div>
-									</div>
+									)}
 
 									{/* Company Description */}
 									<div className="mt-8">
 										<h2 className="text-lg font-semibold to-gray-800 border-b border-gray-200 pb-2 mb-2">About Company</h2>
-										<p className="text-sm to-gray-700 leading-relaxed bg-gray-50 p-6 rounded-lg">{profileData.companyDescription}</p>
+										{profileData?.companyDescription === "" ? (
+											"No data found!"
+										) : (
+											<p className="text-sm to-gray-700 leading-relaxed bg-gray-50 p-6 rounded-lg">{profileData?.companyDescription}</p>
+										)}
 									</div>
 								</div>
 							</div>
