@@ -34,7 +34,7 @@ const JobCard = ({ job, onClick, onToggleSave, onApply, saved, hideApply }) => {
 						</h3>
 						<p className="text-sm flex items-center gap-2 mt-1">
 							<Building className="w-3.5 h-3.5" />
-							{job?.company?.companyName}
+							{job?.company?.companyName ?? job?.company?.name}
 						</p>
 					</div>
 				</div>
